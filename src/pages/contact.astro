@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSplit from '../components/HeroSplit.astro';
+import BookingCalendar from '../components/BookingCalendar.astro';
+import { serviceTestimonials, site } from '../data/site';
+import heroImg from '../assets/images/hero-book.jpg';
+---
+<Layout title="Book a Consultation | Your CEO Solution" description="Book a free consultation with Your CEO Solution — fractional COO and leadership coaching for health and wellness practices.">
+  <HeroSplit image={heroImg} testimonials={serviceTestimonials} overlay={0.25}>
+    <h1>Unlock Your Business Potential – Book a Free Consultation</h1>
+  </HeroSplit>
+
+  <section class="section booking-section">
+    <div class="container">
+      <BookingCalendar calendarId={site.calendars.coaching} title="Schedule a Coaching Call (60 min)" />
+      <p class="alt-contact">
+        Prefer to reach out directly? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a> ({site.hours}).
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .booking-section { padding-block: 80px; }
+  .alt-contact { text-align: center; margin-top: 28px; font-size: 0.95rem; }
+  .alt-contact a { color: var(--c-teal); font-weight: 700; }
+</style>

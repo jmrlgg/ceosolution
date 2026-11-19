@@ -1,0 +1,39 @@
+---
+/**
+ * Embeds a GoHighLevel / LeadConnector booking calendar.
+ * The calendar IDs live in src/data/site.ts.
+ *
+ * This is a plain iframe on purpose. LeadConnector's form_embed.js hides the
+ * iframe off-screen until the widget reports back, and in testing it never
+ * revealed it, which left a blank box. A fixed-height iframe always shows.
+ */
+interface Props {
+  calendarId: string;
+  title?: string;
+}
+const { calendarId, title = 'Book a call' } = Astro.props;
+const src = `https://api.leadconnectorhq.com/widget/booking/${calendarId}`;
+---
+<div class="booking">
+  <iframe src={src} title={title} loading="lazy"></iframe>
+  <p class="booking__fallback">
+    Calendar not loading? <a href={src} target="_blank" rel="noopener">Open the booking page in a new tab</a>.
+  </p>
+</div>
+
+<style>
+  .booking {
+    max-width: 760px;
+    margin-inline: auto;
+    background: var(--c-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  .booking iframe { display: block; width: 100%; height: 820px; border: 0; }
+  .booking__fallback { margin: 0; padding: 10px 16px; text-align: center; font-size: 0.8rem; color: var(--c-muted); border-top: 1px solid #eee; }
+  .booking__fallback a { color: var(--c-teal); font-weight: 700; }
+  @media (max-width: 640px) {
+    .booking iframe { height: 1100px; }
+  }
+</style>

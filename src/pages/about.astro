@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import HeroSplit from '../components/HeroSplit.astro';
+import Button from '../components/Button.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
+import BookingCalendar from '../components/BookingCalendar.astro';
+import Icon from '../components/Icon.astro';
+import { serviceTestimonials, site } from '../data/site';
+
+import heroImg from '../assets/images/hero-about.jpg';
+import bookImg from '../assets/images/book-highlight.jpg';
+import marie from '../assets/images/marie.jpg';
+import jacqi from '../assets/images/jacqi.jpg';
+import andrena from '../assets/images/andrena.png';
+import coachingImg from '../assets/images/coaching-session.jpg';
+import foundersBooks from '../assets/images/founders-books.png';
+import videoPoster from '../assets/images/video-poster-about.jpg';
+
+const team = [
+  {
+    img: marie,
+    alt: 'Marie Bartling with her two dogs',
+    name: 'Marie Bartling, DVM, CCRT, CVPP',
+    role: 'Co-Founder · Veterinarian - Team Development Strategist - Public Speaker - Certified Life Coach',
+    bio: [
+      'Marie has spent 20+ years as an integrative veterinarian on the front lines of health and healing solving complex medical puzzles, building rehab and regenerative medicine programs, and leading teams in just about every ownership model from solo start-up to corporate.',
+      'If your practice feels like it’s being held together by a few key people and a lot of sheer will, she’s been there, and knows exactly how it feels from the inside. The secret to escaping that hamster wheel is to empower the right people.',
+      'Today, she brings years of experience into her work as your leadership and team development coach. Marie helps owners and teams actually see each other—strengths, styles, and blind spots—so they can communicate better, make decisions from their values (not guilt or fear), and build businesses that support their lives instead of consuming them.',
+      'Addiction: Starbucks Soy Macha Latte - Hot',
+    ],
+    quote: '"Talk to her about animals, travel, dance, art, and food—you will be fast friends."',
+  },
+  {
+    img: jacqi,
+    alt: 'Jacqi Dix seated at a conference table',
+    name: 'Jacqi Dix',
+    role: 'Co-Founder · Business & Operations Strategist - Accountant - Certified Life Coach',
+    bio: [
+      'Jacqi has spent 20+ years in business operations and finance, streamlining the back end of health and wellness businesses—from durable medical equipment companies to acupuncture and integrative clinics.',
+      'If your days are full of fires, duplicate work, and “we’ve always done it this way,” she’s the one who quietly turns that chaos into clear, repeatable workflows your team actually uses.',
+      'With a background in accounting and strategic operations, she’s exceptional at spotting where money, time, and energy are getting stuck—and somehow makes talking about cashflow feel as comforting as a great cup of tea. Her gift is bridging the gap between numbers and people, intention and execution, so you end up with systems that support your team and a team that actually understands (and appreciates) the systems.',
+      'Addiction: Starbucks Chai Latte - hot',
+    ],
+    quote: '"Talk to her about books, pickleball, southern living, and dogs—she will love it."',
+    reverse: true,
+  },
+  {
+    img: andrena,
+    alt: 'Andrena Thorne holding sunflowers',
+    name: 'Andrena Thorne',
+    role: 'Client Experience Liaison - Veterinary Technician',
+    bio: [
+      'Andrena is here to make sure your experience with Your CEO Solutions feels smooth, thoughtful, and well taken care of—from the first message to the final follow-up.',
+      'She’s worked as a customer service representative, veterinary technician, and personal assistant, so she understands both the clinical side and the “real life” behind a busy health and wellness business. She keeps the details moving so you don’t have to chase down answers or wonder what happens next.',
+      'Addiction: Starbucks Caramel Macchiato - iced',
+    ],
+    quote: '"Outside of work, she loves her giant Doodles, her mini cows, her husband, their young son, and country music. If you ever feel compelled to send her a thank-you, an Amazon gift card will never be turned down."',
+  },
+];
+
+const coaching = [
+  { title: 'Work With Jacqi:', quote: '“Jacqi does an incredible job of holding space with her clients. I personally experienced being able to bring my full self to each session knowing that she was on my team and wanted to help me achieve my goals.” – C. Wearwinsome' },
+  { title: 'Work With Marie:', quote: '“Marie’s coaching was eye-opening and transformative, providing a safe space and the gentle nudge needed to reach the next level of my journey. I highly recommend her as an empowering, inspiring, and captivating coach whose skills are next to none.” – H. Taal' },
+];
+---
+<Layout title="About Us | Your CEO Solution" description="Meet Marie Bartling and Jacqi Dix — the fractional COO and leadership team helping health and wellness practices run without the owner.">
+  <HeroSplit image={heroImg} testimonials={serviceTestimonials} overlay={0.2}>
+    <p class="eyebrow">About Us</p>
+    <h1 class="about-h1">We founded YCS because healthy businesses create healthier lives.</h1>
+  </HeroSplit>
+
+  <section class="section">
+    <div class="container why">
+      <figure>
+        <Image class="framed" src={bookImg} alt="Hands holding open a highlighted copy of The Big Leap" widths={[400, 740]} sizes="(max-width: 820px) 100vw, 370px" />
+        <figcaption>"I expand in abundance, success, and love every day, as I inspire those around me to do the same." - Gay Hendricks (The Big Leap)</figcaption>
+      </figure>
+      <div>
+        <h2 class="section-title">Why we exist</h2>
+        <p>At Your CEO Solution, we believe founders shouldn’t have to sacrifice clarity, capacity, or well-being to build a successful business.</p>
+        <p>Too often, growth brings complexity, burnout, and decision fatigue—leaving leaders feeling stuck inside the very business they worked so hard to create.</p>
+        <p>We exist to change that.</p>
+        <p>We believe a business should support the life you want to live—not trap you inside it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-list" aria-label="Our team">
+    <div class="container">
+      {team.map((m) => (
+        <article class:list={['member', { 'member--reverse': m.reverse }]}>
+          <Image class="member__photo" src={m.img} alt={m.alt} widths={[300, 520]} sizes="(max-width: 700px) 100vw, 200px" />
+          <div class="member__body">
+            <h2>{m.name}</h2>
+            <p class="member__role">{m.role}</p>
+            {m.bio.map((p) => <p>{p}</p>)}
+            <p><em>{m.quote}</em></p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container coaching">
+      <div class="coaching__intro">
+        <Image class="framed" src={coachingImg} alt="Jacqi and Marie leading a coaching session with a client" widths={[400, 600]} sizes="(max-width: 820px) 100vw, 270px" />
+        <h2 class="section-title">Coaching Testimonials</h2>
+      </div>
+      {coaching.map((c) => (
+        <figure class="ccard">
+          <Icon name="quote" size={30} class="ccard__icon" />
+          <h3>{c.title}</h3>
+          <div class="ccard__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>{c.quote}</blockquote>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container coach">
+      <div>
+        <h2 class="section-title">We all deserve a coach.</h2>
+        <p>Strategy and systems matter—but they only stick if the people leading them are supported.</p>
+        <p>A coach is an unbiased guide who helps you see your blind spots, understand your own motivations, and make decisions from a grounded place of clarity and purpose.</p>
+        <p>Together we empower you and your team to build a business that supports you and your unique contribution to health and wellness.</p>
+        <p>Thank you for all you do.</p>
+      </div>
+      <figure>
+        <VideoPlayer src="/videos/coaching-testimonial.mp4" poster={videoPoster} label="Executive coaching testimonial video" />
+        <figcaption>EXECUTIVE COACHING TESTIMONIAL VIDEO</figcaption>
+      </figure>
+    </div>
+
+    <div class="container">
+      <div class="ready">
+        <Image class="ready__img" src={foundersBooks} alt="Marie Bartling and Jacqi Dix holding books" widths={[340, 613]} sizes="(max-width: 820px) 100vw, 340px" />
+        <div class="ready__body">
+          <h2>Ready to meet your implementation team?</h2>
+          <p>If you’re thinking it’s time to get out of that awkward, overwhelming stage of business growth—you’re right.</p>
+          <p>We believe your business doesn't have to rule your life. We are here to help you get the work done.</p>
+          <p>Your next level of business freedom is just a phone call away.</p>
+          <Button href="/contact" variant="light" size="lg">Book a Free Discovery Call</Button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container calendar-wrap">
+      <BookingCalendar calendarId={site.calendars.discovery} title="Book a Discovery Call (30 min)" />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .eyebrow { font-weight: 700; font-size: 1.1rem; margin: 0; }
+  .about-h1 { font-size: clamp(2rem, 3.4vw, 2.4rem) !important; }
+
+  .framed { border: 2px solid #444; border-radius: 4px; width: 100%; }
+  .why { display: grid; grid-template-columns: 370px 1fr; gap: 40px; align-items: start; }
+  .why figure { margin: 0; }
+  .why figcaption { text-align: center; font-size: 0.85rem; margin-top: 10px; }
+  .why h2 { margin: 30px 0 1.3em; }
+  .why p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.3em; }
+
+  .team-list .container { display: grid; gap: 20px; padding-block: 8px 32px; max-width: 790px; }
+  .member {
+    display: grid; grid-template-columns: 200px 1fr; gap: 16px;
+    background: var(--c-teal); color: var(--c-white);
+    border-radius: 8px; padding: 14px;
+  }
+  .member--reverse { grid-template-columns: 1fr 200px; }
+  .member--reverse .member__photo { order: 2; }
+  .member__photo { width: 100%; height: auto; max-height: 300px; object-fit: cover; border: 2px solid var(--c-white); border-radius: 10px; }
+  .member__body h2 { color: var(--c-white); font-size: 1.75rem; margin: 0 0 4px; }
+  .member__role { font-weight: 700; font-size: 0.8rem; margin-bottom: 0.6em; }
+  .member__body p { font-size: 0.78rem; line-height: 1.3; margin-bottom: 1.1em; }
+
+  .coaching { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; align-items: start; }
+  .coaching__intro h2 { margin-top: 16px; }
+  .ccard { margin: 0; background: var(--c-sage); border-radius: 8px; padding: 18px 14px; font-size: 0.75rem; line-height: 1.7; }
+  .ccard :global(.ccard__icon) { color: var(--c-forest); }
+  .ccard h3 { font-size: 0.95rem; margin: 10px 0 6px; }
+  .ccard__stars { color: var(--c-star); font-size: 1rem; letter-spacing: 2px; margin-bottom: 8px; }
+  .ccard blockquote { margin: 0; }
+
+  .coach { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; padding-inline: 32px; }
+  .coach p { font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.3em; }
+  .coach figure { margin: 0; }
+  .coach figcaption { text-align: center; font-size: 0.85rem; margin-top: 8px; }
+
+  .ready {
+    display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: center;
+    margin-top: 48px; background: var(--c-teal); color: var(--c-white);
+    border: 4px solid var(--c-white); border-radius: 8px; padding: 4px; box-shadow: 0 0 0 1px rgba(0,0,0,0.04);
+  }
+  .ready__img { width: 100%; border-radius: 10px; }
+  .ready__body { padding: 24px 20px; }
+  .ready__body h2 { color: var(--c-white); font-size: 1.6rem; margin-bottom: 1.2em; }
+  .ready__body p { font-size: 0.85rem; margin-bottom: 1em; }
+  .calendar-wrap { margin-top: 64px; }
+
+  @media (max-width: 900px) {
+    .coaching { grid-template-columns: 1fr 1fr; }
+    .coaching__intro { grid-column: 1 / -1; }
+  }
+  @media (max-width: 820px) {
+    .why, .coach, .ready { grid-template-columns: 1fr; }
+    .coach { padding-inline: 20px; }
+    .why h2 { margin-top: 0; }
+  }
+  @media (max-width: 640px) {
+    .member, .member--reverse { grid-template-columns: 1fr; }
+    .member--reverse .member__photo { order: 0; }
+    .member__photo { max-height: 380px; }
+    .coaching { grid-template-columns: 1fr; }
+  }
+</style>

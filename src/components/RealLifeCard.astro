@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import jacqi from '../assets/images/jacqi-cutout.png';
+import Button from './Button.astro';
+---
+<section class="section-tight">
+  <div class="container">
+    <div class="rl">
+      <div class="rl__text">
+        <h2>What this looks like in real life</h2>
+        <p>“<strong>Jacqi helped us </strong>line up our people, finances, processes, and performance so everyone was pulling in the same direction.</p>
+        <p>In a year, we went from constant fires and fuzzy numbers to a clean operation that was ready for due diligence—<strong>and we ultimately 3x’d our valuation.”</strong></p>
+        <Button href="/contact" sub="Find your smartest next move!" size="lg">Book Your Free Discovery Call</Button>
+      </div>
+      <Image class="rl__img" src={jacqi} alt="Jacqi Dix, co-founder, holding a coffee cup" width={320} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-tight { padding-block: 14px; }
+  .rl {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px;
+    background: var(--c-sage);
+    border: 3px solid var(--c-forest);
+    border-radius: var(--radius);
+    padding: 20px 40px 0 28px;
+    overflow: hidden;
+  }
+  .rl__text { padding: 40px 0 52px; max-width: 440px; font-size: 0.92rem; }
+  .rl h2 { font-size: clamp(1.6rem, 2.6vw, 2rem); margin-bottom: 8px; }
+  .rl__text p { margin-bottom: 0.9em; line-height: 1.4; }
+  .rl__text :global(.btn) { margin-top: 10px; }
+  .rl__img { width: 200px; height: auto; max-height: 300px; object-fit: contain; object-position: bottom; }
+
+  @media (max-width: 700px) {
+    .rl { grid-template-columns: 1fr; padding: 4px 20px 0; }
+    .rl__text { padding: 28px 0 8px; }
+    .rl__img { justify-self: center; width: 180px; }
+  }
+</style>

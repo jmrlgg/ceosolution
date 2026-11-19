@@ -1,0 +1,112 @@
+---
+import type { Testimonial } from '../data/site';
+
+interface Props {
+  items: Testimonial[];
+  /** Auto-advance interval in ms (0 disables). */
+  interval?: number;
+}
+const { items, interval = 7000 } = Astro.props;
+---
+<div class="carousel" data-interval={interval}>
+  <div class="carousel__viewport">
+    {items.map((t, i) => (
+      <figure class="tcard" data-slide hidden={i !== 0}>
+        <div class="tcard__stars" aria-label="5 out of 5 stars">★ ★ ★ ★ ★</div>
+        <blockquote class="tcard__quote">{t.quote}</blockquote>
+        <button type="button" class="tcard__more" aria-expanded="false">Read more</button>
+        <figcaption>
+          <span class:list={['tcard__name', { 'tcard__name--big': !t.meta }]}>{t.name}</span>
+          {t.meta && <span class="tcard__meta">{t.meta}</span>}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="carousel__dots" role="tablist" aria-label="Choose testimonial">
+    {items.map((_, i) => (
+      <button type="button" role="tab" aria-label={`Testimonial ${i + 1}`} aria-selected={i === 0 ? 'true' : 'false'} data-dot={i}></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.carousel').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const ms = Number(root.dataset.interval || 0);
+    let current = 0;
+    let timer: number | undefined;
+
+    const show = (n: number) => {
+      current = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => (s.hidden = i !== current));
+      dots.forEach((d, i) => d.setAttribute('aria-selected', String(i === current)));
+    };
+    const start = () => {
+      if (!ms || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stop();
+      timer = window.setInterval(() => show(current + 1), ms);
+    };
+    const stop = () => window.clearInterval(timer);
+
+    dots.forEach((d, i) => d.addEventListener('click', () => { show(i); start(); }));
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+
+    // "Read more" expands the clamped quote in place.
+    root.querySelectorAll<HTMLButtonElement>('.tcard__more').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.tcard');
+        const open = card?.classList.toggle('is-open') ?? false;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.textContent = open ? 'Read less' : 'Read more';
+        stop();
+      });
+    });
+
+    start();
+  });
+</script>
+
+<style>
+  .carousel { width: 100%; max-width: 380px; }
+  .tcard {
+    margin: 0;
+    background: var(--c-sage);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    box-shadow: var(--shadow);
+    color: var(--c-text);
+  }
+  .tcard__stars { color: var(--c-star); font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 10px; }
+  .tcard__quote {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--c-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .tcard.is-open .tcard__quote { -webkit-line-clamp: unset; overflow: visible; }
+  .tcard__more {
+    background: none; border: 0; padding: 4px 0; margin: 2px 0 14px;
+    font: inherit; font-size: 0.72rem; font-weight: 700; font-style: italic;
+    color: var(--c-text); cursor: pointer;
+  }
+  .tcard__more:hover { text-decoration: underline; }
+  .tcard figcaption { display: flex; flex-direction: column; }
+  .tcard__name { color: var(--c-forest); font-weight: 700; font-size: 0.78rem; }
+  .tcard__name--big { font-size: 1rem; }
+  .tcard__meta { font-size: 0.7rem; }
+
+  .carousel__dots { display: flex; justify-content: center; gap: 6px; margin-top: 26px; }
+  .carousel__dots button {
+    width: 8px; height: 8px; padding: 0; border: 0; border-radius: 1px;
+    background: rgba(255,255,255,0.45); cursor: pointer;
+  }
+  .carousel__dots button[aria-selected='true'] { background: var(--c-white); }
+</style>

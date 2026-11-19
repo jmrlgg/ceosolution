@@ -1,0 +1,249 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '../layouts/Layout.astro';
+import HeroSplit from '../components/HeroSplit.astro';
+import Button from '../components/Button.astro';
+import RealLifeCard from '../components/RealLifeCard.astro';
+import { site, workTestimonials } from '../data/site';
+
+import heroImg from '../assets/images/coaching-session.jpg';
+import teamPhoto from '../assets/images/team-photo.jpg';
+import pPeople from '../assets/images/pillar-people.png';
+import pProcess from '../assets/images/pillar-process.png';
+import pPerformance from '../assets/images/pillar-performance.png';
+import sDiscovery from '../assets/images/service-discovery.jpg';
+import sBlueprint from '../assets/images/service-blueprint.jpg';
+import sAlignment from '../assets/images/service-alignment.jpg';
+import sSprint from '../assets/images/service-sprint.jpg';
+import sCoo from '../assets/images/service-coo.jpg';
+import jacqiPortrait from '../assets/images/jacqi-portrait.jpg';
+
+const pillars = [
+  { icon: pPeople, title: 'People', text: 'People are your foundation. With aligned roles and strengths, they can help you carry and advance the work.' },
+  { icon: pProcess, title: 'Process', text: 'Processes should serve the people to protect you all from burnout and create efficiency.' },
+  { icon: pPerformance, title: 'Performance', text: 'When the team and systems are in flow, your time and business both experience exponential returns.' },
+];
+
+type Offer = {
+  img: ImageMetadata;
+  alt: string;
+  badge: string;
+  title: string;
+  time?: string;
+  forLabel: string;
+  forText: string[];
+  what: string;
+  outcomesLead?: string;
+  outcomes: string[];
+  investment?: string;
+  advantage: string[];
+  cta?: boolean;
+};
+
+const offers: Offer[] = [
+  {
+    img: sDiscovery, alt: 'A compass held over a map', badge: 'Complementary Discovery Call',
+    title: 'A Mini Business Coaching Session', time: '(30 Min)',
+    forLabel: 'The Foundation For',
+    forText: ['Those who want the opportunity for a free consult to discuss the vision and challenges they face in business.'],
+    what: 'A low-pressure discussion to explore how we can support you.',
+    outcomesLead: 'Discuss big challenges & prioritize your list!', outcomes: [],
+    investment: '30 min',
+    advantage: ['A clear list of "hot" action items', 'You may receive an invitation to the Business Intensive'],
+    cta: true,
+  },
+  {
+    img: sBlueprint, alt: 'Business owners reviewing plans around a table', badge: 'Step 1',
+    title: 'Business Growth Blueprint', time: '(6 hr)',
+    forLabel: 'The Foundation For',
+    forText: ['Those who are ready for a holistic look at the people and processes that help their business run at the highest level.'],
+    what: 'This program is designed to build your business plan and implementation strategy for the next 12 months.',
+    outcomesLead: 'Update Your Vision & Business Plan for New Growth',
+    outcomes: ['Identify Key Profit Centers', 'High-Level Workflow Map', 'Leadership Impact Assessment + Profile (for up to 3)'],
+    investment: 'Scheduled as 6 hrs of deep dive business coaching',
+    advantage: ['Maximum Leadership Efficiency', 'Regain Your Time', 'Learn Your Leadership Style & Best Partnership Opportunities', 'You Will Be Prepared to Lead Your Team Through Growth'],
+  },
+  {
+    img: sAlignment, alt: 'Colleagues shaking hands in an office hallway', badge: 'Step 2',
+    title: 'Team Alignment Plan', time: '(21 - 30 days)',
+    forLabel: 'The Foundation For',
+    forText: ['Those who want to refine roles and responsibilities and build a clear organizational chart that fits their next level of business growth.'],
+    what: 'We’ll help you clearly understand your team—what motivates them, what they’re aiming for, and where they’ll thrive—using an online assessment and focused interviews.',
+    outcomesLead: 'Team Alignment',
+    outcomes: ['Scorecard for each employee', 'Role fit assessment', 'Organizational chart', 'Ownership map for workflows'],
+    investment: 'The initial discussion happens during your blueprint assessment, then the YCS team will meet with leadership again in 3 weeks when the team has been assessed.',
+    advantage: ['Optimize the engagement and skillset of your team', 'Implement initiatives with role clarity', 'Maximum Efficiency without friction and rework', 'Your hiring and training list has a clear formula'],
+  },
+  {
+    img: sSprint, alt: 'A team workshop in a bright office', badge: 'Step 3',
+    title: 'Implementation Sprint', time: '(90 - 120 days)',
+    forLabel: 'The Results Generator for:',
+    forText: ['Those who have completed step one or are ready to start with both Step 1 & 2.', 'You know your people, you have signed off on your business plan and you are ready for us to implement it.'],
+    what: 'We will take on your 90-day project to align your leadership, your team, and key high-impact systems.',
+    outcomes: ['90 day action plan and key metrics', 'Selected critical systems mapped, redesigned, documented, trained, and supported in real life', 'Full team assessment and tailored workshop so people are aligned and heard'],
+    advantage: ['Clear profitability tracking', 'Clean operations', 'An empowered team with clear roles', 'Free weekends'],
+  },
+  {
+    img: sCoo, alt: 'A hand pointing at a revenue dashboard on a laptop', badge: 'Unlimited Potential',
+    title: 'Fractional COO & Team Development',
+    forLabel: 'Business Building Momentum For:',
+    forText: ['Those who want ongoing C-suite and leadership support after a Sprint to scale, stabilize, or prepare for sale.'],
+    what: 'A 6–12 month relationship where we act as your fractional COO and leadership partner.',
+    outcomes: ['Regular leadership meetings with clear priorities and decisions', 'Key projects implemented from front desk to clinical floor', 'SOP generation, hiring assistance, team training', 'Turnkey operations that run independently of you', 'Scalable, salable, profitable business', 'Quarterly (or more) team development workshops and employee interviews for progress and job satisfaction'],
+    advantage: ['Turnkey operations that run independently of you', 'Scalable, salable, profitable business', 'True freedom - disconnected vacations'],
+  },
+];
+---
+<Layout title="Work With Us | Your CEO Solution" description="Discovery Call, Business Growth Blueprint, Team Alignment Plan, Implementation Sprint and Fractional COO support for health and wellness practices.">
+  <HeroSplit image={heroImg} testimonials={workTestimonials} overlay={0.35}>
+    <p class="eyebrow"><strong><em>Work With Us</em></strong></p>
+    <h1>If we could change one thing in your business right now, what would it be?</h1>
+    <p class="hero-lead">Our clients come to us because they want:</p>
+    <ul class="checklist checklist--white hero-list">
+      <li>More time.</li>
+      <li>Better profit margin.</li>
+      <li>Less stress.</li>
+      <li>To improve business valuation.</li>
+    </ul>
+  </HeroSplit>
+
+  <div class="container">
+    <p class="tagline">Happy people. Clean ops. Real vacations. Better valuation.</p>
+  </div>
+
+  <section class="section">
+    <div class="container wwd">
+      <div>
+        <h2 class="section-title">What We Do</h2>
+        <p class="wwd__lead"><strong>People Come First - always.</strong></p>
+        <p><strong>Our Framework: People &gt; Process &gt; Performance.</strong></p>
+        <p><strong>In 120 days, we can assess your workforce, line out your vision with you and start working on your first project as your Executive Implementation Team.</strong></p>
+        <div class="pillars">
+          {pillars.map((p) => (
+            <div class="pillar">
+              <Image src={p.icon} alt="" width={30} height={30} />
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Image class="wwd__img" src={teamPhoto} alt="The Your CEO Solution team with a client" widths={[400, 600]} sizes="(max-width: 820px) 100vw, 290px" />
+    </div>
+  </section>
+
+  <RealLifeCard />
+
+  <section class="section section--cream offers-section">
+    <div class="container">
+      <h2 class="section-title center">How We Work Together</h2>
+      <div class="offers">
+        {offers.map((o) => (
+          <article class="offer">
+            <Image class="offer__img" src={o.img} alt={o.alt} widths={[400, 600]} sizes="(max-width: 760px) 100vw, 295px" />
+            <div class="offer__body">
+              <span class="offer__badge">{o.badge}</span>
+              <h3 class="offer__title">{o.title}{o.time && <><br />{o.time}</>}</h3>
+              <h4>{o.forLabel}</h4>
+              {o.forText.map((t) => <p>{t}</p>)}
+              <h4>What it is</h4>
+              <p>{o.what}</p>
+              <h4>Key outcomes</h4>
+              {o.outcomesLead && <p class="tight">{o.outcomesLead}</p>}
+              {o.outcomes.length > 0 && <ul>{o.outcomes.map((x) => <li>{x}</li>)}</ul>}
+              {o.investment && <><h4>Time Investment</h4><p>{o.investment}</p></>}
+              <h4>Your New Advantage:</h4>
+              <ul>{o.advantage.map((x) => <li>{x}</li>)}</ul>
+              {o.cta && <Button href="/contact">Book a Free Discovery Call</Button>}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="center">
+        <Button href="/contact">Book a Free Discovery Call</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results">
+    <div class="container">
+      <div class="results__card">
+        <Image class="results__img" src={jacqiPortrait} alt="Portrait of Jacqi Dix" widths={[340, 680]} sizes="(max-width: 820px) 100vw, 340px" />
+        <div class="results__body">
+          <h2>What This Looks Like in Real Life</h2>
+          <p>“Jacqi helped us do a full practice alignment. In 90 days, we clarified roles, cleaned up our scheduling and money flow, and set simple weekly rhythms.</p>
+          <p>It finally feels like the clinic is working as a business, not just me holding everything together.”</p>
+          <p><strong>Acupuncture &amp; wellness clinic · 90-Day Sprint + ongoing support</strong></p>
+          <Button href={site.caseReport} variant="light" size="lg">Case Report</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sage next">
+    <div class="container center">
+      <h2 class="section-title">Ready for your next level?</h2>
+      <p>If you’re ready for your practice to run smoothly without everything landing on your desk, let’s talk about your best starting point.</p>
+      <Button href="/contact" size="lg">Book a Free Discovery Call</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .eyebrow { font-size: 1.3rem; margin: 0 0 4px; }
+  .hero-lead { font-size: 1.05rem; margin: 12px 0 10px; }
+  .hero-list { font-size: 0.9rem; }
+
+  .tagline {
+    margin: 14px 0 0; padding: 12px 20px; text-align: center;
+    background: var(--c-sand); color: var(--c-text);
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem); font-weight: 700;
+  }
+
+  .wwd { display: grid; grid-template-columns: 1fr 290px; gap: 80px; align-items: end; padding-inline: 24px; }
+  .wwd h2 { margin-bottom: 1.6em; }
+  .wwd__lead { font-size: 1.15rem; }
+  .wwd p { margin-bottom: 0.8em; }
+  .wwd__img { width: 100%; }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 44px; padding-inline: 12px; }
+  .pillar h3 { font-size: 0.95rem; margin: 10px 0 6px; }
+  .pillar p { font-size: 0.8rem; line-height: 1.6; color: var(--c-muted); }
+
+  .offers-section { margin-top: 14px; }
+  .offers { display: grid; gap: 24px; margin: 32px 0; }
+  .offer {
+    display: grid; grid-template-columns: 295px 1fr; gap: 20px;
+    background: var(--c-white); border: 2px solid var(--c-forest); border-radius: 6px; padding: 14px;
+  }
+  .offer__img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+  .offer__body { font-size: 0.82rem; padding: 0 12px 16px 0; }
+  .offer__badge { display: inline-block; background: var(--c-teal); color: var(--c-white); border: 2px solid var(--c-forest); border-radius: 999px; padding: 2px 12px; font-weight: 700; font-size: 0.95rem; }
+  .offer__title { color: var(--c-navy); font-size: 1.15rem; margin: 10px 0 14px; }
+  .offer h4 { font-size: 0.85rem; margin: 10px 0 4px; }
+  .offer p { margin-bottom: 0.6em; }
+  .offer .tight { margin-bottom: 0.2em; }
+  .offer ul { margin: 0.3em 0 1em; padding-left: 32px; }
+  .offer ul li { margin-bottom: 1px; }
+  .offer :global(.btn) { margin-top: 18px; }
+
+  .results { background: linear-gradient(to bottom, var(--c-white) 0 90px, var(--c-sage) 90px); padding: 28px 0 48px; }
+  .results__card { display: grid; grid-template-columns: 340px 1fr; gap: 14px; align-items: center; background: var(--c-teal); color: var(--c-white); border-radius: 8px; padding: 6px; }
+  .results__img { width: 100%; border-radius: 10px; }
+  .results__body { padding: 24px 20px; font-size: 0.85rem; }
+  .results__body h2 { color: var(--c-white); font-size: clamp(1.5rem, 2.6vw, 1.75rem); margin-bottom: 0.4em; }
+  .results__body p { margin-bottom: 1em; }
+
+  .next p { max-width: 640px; margin: 0 auto 1.4em; }
+
+  @media (max-width: 820px) {
+    .wwd { grid-template-columns: 1fr; gap: 32px; padding-inline: 20px; }
+    .pillars { grid-template-columns: 1fr; gap: 20px; padding-inline: 0; }
+    .results__card { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .offer { grid-template-columns: 1fr; }
+    .offer__img { max-height: 260px; }
+    .offer__body { padding: 0 4px 8px; }
+  }
+</style>

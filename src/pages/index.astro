@@ -1,0 +1,243 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import HeroSplit from '../components/HeroSplit.astro';
+import Button from '../components/Button.astro';
+import VideoPlayer from '../components/VideoPlayer.astro';
+import RealLifeCard from '../components/RealLifeCard.astro';
+import BookingCalendar from '../components/BookingCalendar.astro';
+import Faq from '../components/Faq.astro';
+import { homeTestimonials, site } from '../data/site';
+
+import heroImg from '../assets/images/hero-home.jpg';
+import ownerImg from '../assets/images/owner-overwhelmed.jpg';
+import iconPhone from '../assets/images/icon-phone.png';
+import iconMap from '../assets/images/icon-map.png';
+import iconTarget from '../assets/images/icon-target.png';
+import iconTeam from '../assets/images/icon-team.png';
+import medspa from '../assets/images/audience-medspa.jpg';
+import integrative from '../assets/images/audience-integrative.jpg';
+import wellness from '../assets/images/audience-wellness.jpg';
+import device from '../assets/images/audience-medical-device.jpg';
+import foundersOffice from '../assets/images/founders-office.webp';
+import videoPoster from '../assets/images/video-poster-home.jpg';
+
+const phases = [
+  { label: 'Start Up', tone: 'sage' },
+  { label: 'Awkward Growth', tone: 'cream' },
+  { label: 'Slow Scaling', tone: 'leaf' },
+  { label: 'Valued + Competing', tone: 'teal' },
+];
+
+const steps = [
+  { icon: iconPhone, title: 'Discovery Call', time: '(30 min) →', desc: 'A Complimentary Discovery Call.', get: 'Clarity around what you need to make you next big move.' },
+  { icon: iconMap, title: 'Business Growth Blueprint', time: '(6 hr)→', desc: 'Two days to reset your vision for the next level of business.', get: 'Streamlined priorities + a plan to reclaim your time.' },
+  { icon: iconTarget, title: 'Team Alignment Plan', time: '(21 - 30 days)→', desc: 'YCS assessment and role evaluation.', get: 'Each member will have a vision for how to align to their personal strengths within your company.' },
+  { icon: iconTeam, title: 'Implementation Sprint', time: '(90 - 120 days) →', desc: 'YCS support for intense focus on your top initiatives.', get: 'A smooth profitable business where everyone loves to work.' },
+  { icon: iconTeam, title: 'Fractional COO & Team Development', time: '(> 6 - 12 mos)', desc: 'YCS brings senior-level execution to your initiatives.', get: 'Smooth ops, low turnover, strong performance, and an optimal valuation.' },
+];
+
+const audiences = [
+  { img: medspa, title: 'Med Spas, Aesthetic, Veterinary & Dental Practices', alt: 'Aesthetic facial treatment at a med spa' },
+  { img: integrative, title: 'Integrative, Rehab, Chiro & Acupuncture Clinics', alt: 'Clinician typing notes beside a stethoscope' },
+  { img: wellness, title: 'Wellness Studios, IV Therapy & Functional Medicine', alt: 'Hot stone massage at a wellness studio' },
+  { img: device, title: 'Medical Product & Device Companies', alt: 'Scientist using a microscope in a lab' },
+];
+---
+<Layout title="Healthy Business Systems for Healthcare Owners | Your CEO Solution">
+  <HeroSplit image={heroImg} testimonials={homeTestimonials} overlay={0.05}>
+    <div class="home-hero">
+      <h1>Fractional COO &amp; Implementation Team</h1>
+      <p><strong><em>For medical spa, wellness clinic, veterinary &amp; dental practice owners</em></strong></p>
+    </div>
+  </HeroSplit>
+
+  <!-- Phases of business -->
+  <section class="phases" aria-labelledby="phases-title">
+    <div class="container phases__inner">
+      <h2 id="phases-title">Phases of Business:</h2>
+      <ol>
+        {phases.map((p) => <li class={`phase phase--${p.tone}`}>{p.label}</li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--cream intro">
+    <div class="container center">
+      <p>What if you could get through the awkward growth quicker?</p>
+      <h2 class="intro__lead">We Turn Growing Health/Wellness Clinics into Smooth, Owner-Independent, High-Value Businesses.</h2>
+      <p class="intro__body">We serve as your fractional COO implementation team to install the people, process, and performance systems that make the business run without you.</p>
+    </div>
+  </section>
+
+  <!-- Freedom -->
+  <section class="section">
+    <div class="container split">
+      <Image class="split__img rounded" src={ownerImg} alt="A practice owner juggling phone calls and paperwork while her team waits" widths={[480, 720]} sizes="(max-width: 820px) 100vw, 360px" />
+      <div class="freedom">
+        <h2>We know it is hard to work 27 jobs. We help you <em>get your freedom back</em>.</h2>
+        <p class="freedom__label">WHAT WE DO:</p>
+        <ul class="checklist">
+          <li>Reset your vision &amp; align leadership</li>
+          <li>Regain your time by empowering your people</li>
+          <li>Optimize your systems &amp; smooth out operations</li>
+          <li>Build valuation in a business to scale or sell</li>
+        </ul>
+        <Button href="/contact" sub="Book Your Free Discovery Call" shape="rect" leadingIcon arrow={false}>Get your 90-Day Escape Plan</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work together -->
+  <section class="section section--sage">
+    <div class="container center">
+      <h2 class="section-title">How We Work Together</h2>
+      <div class="steps">
+        {steps.map((s) => (
+          <article class="step">
+            <Image src={s.icon} alt="" width={40} height={40} />
+            <h3>{s.title}<br />{s.time}</h3>
+            <p>{s.desc}</p>
+            <p><strong>What You Get:</strong><br />{s.get}</p>
+          </article>
+        ))}
+      </div>
+      <Button href="/work-with-us" size="lg">More info about services</Button>
+    </div>
+  </section>
+
+  <!-- Who we work with -->
+  <section class="section">
+    <div class="container">
+      <div class="who__head">
+        <h2 class="section-title">Who we work with</h2>
+        <p><strong>→ You are the best fit for our program if you are: a multi-provider business earning<br />&gt; $1M/year in revenue.</strong></p>
+      </div>
+      <div class="audiences">
+        {audiences.map((a) => (
+          <article class="aud">
+            <Image src={a.img} alt={a.alt} widths={[300, 600]} sizes="(max-width: 600px) 100vw, 270px" />
+            <h3>{a.title}</h3>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome video -->
+  <section class="section section--cream">
+    <div class="container">
+      <VideoPlayer src="/videos/welcome.mp4" poster={videoPoster} label="Welcome to Your CEO Solution — a message from Marie Bartling" mode="muted-autoplay" />
+    </div>
+  </section>
+
+  <RealLifeCard />
+
+  <!-- What makes us different -->
+  <section class="section section--teal different">
+    <div class="container split split--even">
+      <div>
+        <h2 class="section-title">What Makes Us Different</h2>
+        <ul class="checklist checklist--white diff-list">
+          <li>
+            <strong><em>We don’t just advise—we implement.</em></strong>
+            <span>We work inside your practice—meeting with your leaders, your team, and your numbers—until changes are real and repeatable.</span>
+          </li>
+          <li>
+            <strong><em>We have lived it.</em></strong>
+            <span>We’ve been the provider, the operator, and the one holding it all together—burnout included. Now we help you and your team build a smooth, profitable business that creates real freedom at work and at home.</span>
+          </li>
+        </ul>
+        <Button href="/about" variant="light" size="lg">Meet Your Team</Button>
+      </div>
+      <figure class="different__fig">
+        <Image src={foundersOffice} alt="Co-founders Jacqi Dix and Marie Bartling in a client's clinic" widths={[480, 760]} sizes="(max-width: 820px) 100vw, 370px" />
+        <figcaption>FREEDOM IS NOT A LUXURY, IT IS ESSENTIAL TO RUNNING A HIGH - VALUE BUSINESS.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="section section--cream" id="book">
+    <div class="container">
+      <BookingCalendar calendarId={site.calendars.discovery} title="Book a Discovery Call (30 min)" />
+    </div>
+  </section>
+
+  <Faq />
+</Layout>
+
+<style>
+  /* Hero */
+  .home-hero { text-align: center; max-width: 500px; }
+  .home-hero h1 { background: rgba(31, 80, 90, 0.55); padding: 6px 16px; margin: 0; }
+  .home-hero p { background: rgba(45, 160, 170, 0.45); padding: 6px 12px; margin: 6px 0 0; font-size: 1rem; }
+
+  /* Phases */
+  .phases { padding: 20px 0; }
+  .phases__inner { display: flex; align-items: center; justify-content: center; gap: 36px; }
+  .phases h2 { font-size: 1.35rem; font-weight: 400; color: var(--c-text); margin: 0; max-width: 100px; text-align: center; }
+  .phases ol { list-style: none; display: grid; grid-template-columns: repeat(4, 155px); margin: 0; padding: 0; }
+  .phase { display: grid; place-items: center; text-align: center; min-height: 62px; padding: 6px 12px; font-size: 1.3rem; line-height: 1.15; color: var(--c-text); }
+  .phase--sage { background: var(--c-sage); }
+  .phase--cream { background: var(--c-cream); }
+  .phase--leaf { background: var(--c-sage-mid); }
+  .phase--teal { background: var(--c-teal-bright); }
+
+  /* Intro */
+  .intro { padding-block: 40px; }
+  .intro p { font-size: 1.05rem; margin-bottom: 0.9em; }
+  .intro__lead { font-size: 1.1rem; color: var(--c-text); margin-bottom: 0.9em; }
+  .intro__body { max-width: 820px; margin-inline: auto; font-size: 1.1rem; }
+
+  /* Split layouts */
+  .split { display: grid; grid-template-columns: 360px 1fr; gap: 72px; align-items: center; padding-inline: 50px; }
+  .split--even { grid-template-columns: 1fr 1fr; gap: 40px; padding-inline: 20px; }
+  .rounded { border-radius: 6px; }
+  .freedom { max-width: 420px; }
+  .freedom h2 { font-size: 1.6rem; text-align: center; margin-bottom: 1em; }
+  .freedom__label { font-size: 0.85rem; margin-bottom: 0.6em; }
+  .freedom .checklist { font-size: 0.8rem; }
+  .freedom :global(.btn) { margin: 8px auto 0; display: flex; width: fit-content; font-size: 0.85rem; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 28px 0 22px; text-align: center; }
+  .step { background: var(--c-white); border-radius: 6px; padding: 14px 12px; font-size: 0.75rem; }
+  .step :global(img) { margin: 0 auto 6px; }
+  .step h3 { color: var(--c-navy); font-size: 0.95rem; margin-bottom: 1em; }
+  .step p { margin-bottom: 0.9em; }
+
+  /* Audiences */
+  .who__head { display: grid; grid-template-columns: 1fr 1.3fr; align-items: center; gap: 24px; margin-bottom: 24px; }
+  .who__head p { font-size: 0.85rem; text-align: center; margin: 0; }
+  .audiences { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .aud { border: 2px solid var(--c-forest); border-radius: 6px; padding: 6px; background: linear-gradient(to bottom, #fff 55%, var(--c-sage)); }
+  .aud :global(img) { border-radius: 4px; aspect-ratio: 3 / 2; object-fit: cover; width: 100%; }
+  .aud h3 { color: var(--c-navy); font-size: 0.85rem; text-align: center; margin: 10px 4px 6px; }
+
+  /* Different */
+  .different .diff-list li { padding-left: 24px; margin-bottom: 26px; font-size: 0.85rem; line-height: 1.9; }
+  .different .diff-list li::before { top: 0.45em; width: 13px; height: 13px; background-size: 9px; }
+  .diff-list strong { display: block; }
+  .different__fig { margin: 0; text-align: center; }
+  .different__fig :global(img) { border: 2px solid var(--c-white); border-radius: 3px; width: 100%; }
+  .different__fig figcaption { margin-top: 12px; font-size: 0.95rem; }
+
+  @media (max-width: 1000px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .audiences { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 820px) {
+    .phases__inner { flex-direction: column; gap: 12px; }
+    .phases h2 { max-width: none; }
+    .phases ol { grid-template-columns: repeat(2, 1fr); width: 100%; }
+    .phase { font-size: 1.05rem; }
+    .split, .split--even { grid-template-columns: 1fr; gap: 32px; padding-inline: 20px; }
+    .freedom { max-width: none; }
+    .who__head { grid-template-columns: 1fr; }
+    .who__head p { text-align: left; }
+  }
+  @media (max-width: 560px) {
+    .steps, .audiences { grid-template-columns: 1fr; }
+  }
+</style>

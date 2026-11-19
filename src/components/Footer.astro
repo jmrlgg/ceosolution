@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/images/logo-mark.png';
+import Icon from './Icon.astro';
+import { footerLinks, legalLinks, site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <a href="/" class="footer__logo" aria-label={`${site.shortName} home`}>
+        <Image src={logoMark} alt="Your CEO Solution logo mark" width={200} />
+      </a>
+
+      <div>
+        <h3>About the Company</h3>
+        <ul class="footer__links">
+          {footerLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h3>Contact Us</h3>
+        <a class="footer__email" href={`mailto:${site.email}`}>
+          <Icon name="mail" size={14} /> {site.email}
+        </a>
+        <ul class="footer__contact">
+          <li><Icon name="phone" size={14} /><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><Icon name="pin" size={14} /><span>{site.address}</span></li>
+        </ul>
+        <ul class="footer__social">
+          <li><a class="fb" href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" size={20} /></a></li>
+          <li><a class="ig" href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" size={20} /></a></li>
+          <li><a class="li" href={site.social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"><Icon name="linkedin" size={20} /></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="footer__bar-top">
+        <strong class="footer__brand">{site.name}</strong>
+        <ul>
+          {legalLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="footer__bar-bottom">
+        <span>{site.tagline}</span>
+        <span>© {year} {site.name} All rights reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--c-sage); padding: 36px 0 12px; font-size: 0.9rem; }
+  .footer__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; padding-inline: 8px; }
+  .footer__logo img { width: 110px; height: auto; }
+  .footer h3 { font-size: 1.05rem; margin-bottom: 14px; }
+  .footer__links { list-style: none; padding: 0; margin: 0; }
+  .footer__links li { margin-bottom: 8px; }
+  .footer__links a { text-decoration: none; font-size: 0.85rem; }
+  .footer__links a:hover { color: var(--c-teal); text-decoration: underline; }
+
+  .footer__email {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--c-teal); color: var(--c-white);
+    padding: 9px 22px; border-radius: 3px; text-decoration: none;
+    font-weight: 700; font-size: 0.8rem;
+  }
+  .footer__email:hover { background: #196868; }
+  .footer__contact { list-style: none; padding: 0; margin: 14px 0; font-size: 0.85rem; }
+  .footer__contact li { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .footer__contact a { text-decoration: none; }
+  .footer__social { list-style: none; display: flex; gap: 14px; padding: 0 0 0 4px; margin: 0; }
+  .footer__social a { display: grid; place-items: center; width: 30px; height: 30px; color: var(--c-white); border-radius: 2px; }
+  .footer__social .fb { background: #1877f2; }
+  .footer__social .ig { background: #b4245d; }
+  .footer__social .li { background: #0a66c2; }
+  .footer__social a:hover { opacity: 0.85; }
+
+  .footer__bar { margin-top: 32px; background: var(--c-teal); color: var(--c-white); border-radius: var(--radius); padding: 12px 10px; }
+  .footer__bar-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.5); }
+  .footer__brand { font-size: 1.05rem; }
+  .footer__bar ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; font-size: 0.75rem; font-weight: 700; }
+  .footer__bar a { text-decoration: none; }
+  .footer__bar a:hover { text-decoration: underline; }
+  .footer__bar-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 10px; font-size: 0.75rem; font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .footer__grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer__bar-top, .footer__bar-bottom { flex-direction: column; align-items: flex-start; }
+    .footer__bar ul { flex-wrap: wrap; gap: 12px 18px; }
+  }
+</style>

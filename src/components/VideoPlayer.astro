@@ -1,0 +1,66 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: string;
+  poster: ImageMetadata;
+  label: string;
+  /** "muted-autoplay" mirrors the homepage welcome video (plays muted with an "Enable sound" chip). */
+  mode?: 'muted-autoplay' | 'click-to-play';
+  bordered?: boolean;
+}
+const { src, poster, label, mode = 'click-to-play', bordered = true } = Astro.props;
+const posterImg = await getImage({ src: poster, width: 1280, format: 'webp' });
+const autoplay = mode === 'muted-autoplay';
+---
+<div class:list={['video', { 'video--bordered': bordered }]} data-mode={mode}>
+  <video
+    poster={posterImg.src}
+    preload="metadata"
+    playsinline
+    muted={autoplay}
+    loop={autoplay}
+    autoplay={autoplay}
+    controls={!autoplay}
+    aria-label={label}
+  >
+    <source src={src} type="video/mp4" />
+  </video>
+  {autoplay && (
+    <button type="button" class="video__sound">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3Zm13.6 3 2.7-2.7-1.4-1.4L15.2 10.6 12.5 7.9l-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4-2.7-2.7Z"/></svg>
+      Enable sound
+    </button>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.video[data-mode="muted-autoplay"]').forEach((root) => {
+    const video = root.querySelector('video')!;
+    const btn = root.querySelector<HTMLButtonElement>('.video__sound');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) video.pause();
+    btn?.addEventListener('click', () => {
+      video.muted = false;
+      video.loop = false;
+      video.currentTime = 0;
+      video.controls = true;
+      video.play();
+      btn.remove();
+    });
+  });
+</script>
+
+<style>
+  .video { position: relative; border-radius: 6px; overflow: hidden; background: #000; }
+  .video--bordered { border: 3px solid var(--c-forest); }
+  .video video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .video__sound {
+    position: absolute; top: 10px; left: 10px;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0, 0, 0, 0.6); color: #fff;
+    border: 0; border-radius: 6px; padding: 5px 10px;
+    font: 700 0.72rem var(--font); cursor: pointer;
+  }
+  .video__sound:hover { background: rgba(0, 0, 0, 0.8); }
+</style>
